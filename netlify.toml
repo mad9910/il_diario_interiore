@@ -1,6 +1,6 @@
 [build]
   publish = "build/web"
-  command = "chmod +x build.sh && ./build.sh"
+  command = "flutter build web --release --web-renderer html"
 
 [[redirects]]
   from = "/*"

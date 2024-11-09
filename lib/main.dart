@@ -8,22 +8,37 @@ import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final contentService = ContentService(await SharedPreferences.getInstance());
-  await contentService.initialize();
   
-  runApp(
-    MultiProvider(
-      providers: [
-        Provider<ContentService>(
-          create: (_) => contentService,
+  try {
+    final contentService = ContentService(await SharedPreferences.getInstance());
+    await contentService.initialize();
+    
+    runApp(
+      MultiProvider(
+        providers: [
+          Provider<ContentService>(
+            create: (_) => contentService,
+          ),
+          ChangeNotifierProvider(
+            create: (context) => AppState(contentService),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    );
+  } catch (e) {
+    print('Errore durante l\'inizializzazione: $e');
+    // Mostra un errore generico
+    runApp(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text('Si è verificato un errore durante il caricamento.'),
+          ),
         ),
-        ChangeNotifierProvider(
-          create: (context) => AppState(contentService),
-        ),
-      ],
-      child: MyApp(),
-    ),
-  );
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

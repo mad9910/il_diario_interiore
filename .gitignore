@@ -77,7 +77,6 @@ build/
 *.iml
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Android Studio
 /android/app/debug
@@ -91,3 +90,4 @@ lib/generated_plugin_registrant.dart
 **/ios/Flutter/app.zip
 **/ios/*.framework
 **/ios/Flutter/flutter_assets/
+**/ios/Flutter/Generated.xcconfig
