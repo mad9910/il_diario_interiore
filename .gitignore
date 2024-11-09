@@ -59,3 +59,35 @@ build/
 
 # Environment variables related
 .env
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+.pub-cache/
+.pub/
+*.lock
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Android Studio
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS/XCode
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/*.framework
+**/ios/Flutter/flutter_assets/
