@@ -1,0 +1,6 @@
+// Organizzo le storie con titolo e contenuto separati da una riga vuota
+"Le Lettere del Faro"
+
+Il guardiano di un faro remoto aveva iniziato una tradizione particolare. Ogni volta che trovava bottiglie di plastica sulla spiaggia, invece di arrabbiarsi per l'inquinamento, le puliva, inseriva un messaggio di speranza e le rimetteva in mare.
+
+// ... altre storie ... 
