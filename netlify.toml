@@ -1,8 +1,16 @@
 [build]
   publish = "build/web"
-  command = "chmod +x install_flutter.sh && ./install_flutter.sh && flutter build web --release --web-renderer html"
+  command = """
+    chmod +x install_flutter.sh && 
+    ./install_flutter.sh && 
+    export PATH="$PATH:$PWD/flutter-sdk/bin" &&
+    flutter build web --release --web-renderer html
+  """
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.environment]
+  FLUTTER_VERSION = "stable"

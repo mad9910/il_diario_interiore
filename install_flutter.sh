@@ -1,5 +1,13 @@
 #!/bin/bash
-git clone https://github.com/flutter/flutter.git --depth 1 -b stable
-export PATH="$PATH:$PWD/flutter/bin"
-flutter precache
-flutter doctor
+
+# Download Flutter SDK
+git clone https://github.com/flutter/flutter.git -b stable flutter-sdk
+
+# Aggiungi Flutter al PATH
+export PATH="$PATH:$PWD/flutter-sdk/bin"
+
+# Verifica l'installazione
+flutter doctor -v
+
+# Abilita il web
+flutter config --enable-web
