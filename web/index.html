@@ -5,32 +5,46 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Il Diario Interiore - Un viaggio nelle tue emozioni">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Il Diario Interiore">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <link rel="icon" type="image/png" href="favicon.png"/>
   <title>Il Diario Interiore</title>
-  <link rel="manifest" href="manifest.json">
   <script>
-    var serviceWorkerVersion = null;
-  </script>
-  <script src="flutter.js" defer></script>
-</head>
-<body>
-  <script>
-    window.addEventListener('load', function(ev) {
+    // Configurazione per il caricamento di Flutter
+    window.addEventListener('load', function() {
+      var loading = document.querySelector('#loading');
+      var loadingIndicator = document.querySelector('#loading-indicator');
+      
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
+          loading.textContent = 'Inizializzazione...';
           engineInitializer.initializeEngine().then(function(appRunner) {
+            loading.remove();
             appRunner.runApp();
           });
         }
       });
     });
   </script>
+  <style>
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading">
+    <div>Caricamento Il Diario Interiore...</div>
+  </div>
+  <script src="flutter.js" defer></script>
 </body>
 </html>
