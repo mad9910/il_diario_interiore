@@ -4,12 +4,29 @@
   <base href="/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Il Diario Interiore - Un viaggio nelle tue emozioni">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Il Diario Interiore">
+  <meta name="theme-color" content="#4285F4">
+
   <title>Il Diario Interiore</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <script>
     var serviceWorkerVersion = null;
+    var scriptLoaded = false;
+    function loadMainDartJs() {
+      if (scriptLoaded) {
+        return;
+      }
+      scriptLoaded = true;
+      var scriptTag = document.createElement('script');
+      scriptTag.src = 'main.dart.js';
+      scriptTag.type = 'application/javascript';
+      document.body.append(scriptTag);
+    }
   </script>
-  <script src="flutter.js" defer></script>
 </head>
 <body>
   <div id="loading">
@@ -26,7 +43,7 @@
         width: 40px;
         height: 40px;
         border: 4px solid #f3f3f3;
-        border-top: 4px solid #4285F4;
+        border-top: 4px solid #3498db;
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
@@ -38,18 +55,18 @@
     <div class="spinner"></div>
     <p>Caricamento Il Diario Interiore...</p>
   </div>
+  <script src="flutter.js" defer></script>
   <script>
     window.addEventListener('load', function() {
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
         }
-      }).then(function(engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        return appRunner.runApp();
-      }).then(function() {
-        document.getElementById('loading').remove();
       });
     });
   </script>
