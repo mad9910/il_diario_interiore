@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (appState.currentStory == null)
+                      if (appState.currentStory == null && DateTime.now().weekday != DateTime.monday)
                         Padding(
                           padding: EdgeInsets.all(16),
                           child: NextStoryTimer(
@@ -128,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (appState.currentStory != null)
+                      if (appState.currentStory != null || DateTime.now().weekday == DateTime.monday)
                         WeeklyStoryCard(
                           story: appState.currentStory!,
                           state: appState,

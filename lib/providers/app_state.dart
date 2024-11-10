@@ -52,13 +52,7 @@ class AppState with ChangeNotifier {
   Future<void> _loadContent() async {
     _currentMessage = await _contentService.getDailyMessage();
     
-    final bool isMonday = DateTime.now().weekday == DateTime.monday;
-    
-    if (isMonday) {
-      _currentStory = await _contentService.getWeeklyStory();
-    } else {
-      _currentStory = null;
-    }
+    _currentStory = await _contentService.getWeeklyStory();
     
     notifyListeners();
   }
