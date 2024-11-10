@@ -223,6 +223,10 @@ class _SavedItemsCardState extends State<SavedItemsCard> with SingleTickerProvid
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    constraints: BoxConstraints(
+                      maxHeight: MediaQuery.of(context).size.height * 0.7,
+                    ),
                     padding: EdgeInsets.all(16),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -236,11 +240,15 @@ class _SavedItemsCardState extends State<SavedItemsCard> with SingleTickerProvid
                           ),
                         ),
                         SizedBox(height: 12),
-                        Text(
-                          story.content,
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            height: 1.5,
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: Text(
+                              story.content,
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                height: 1.5,
+                              ),
+                            ),
                           ),
                         ),
                         if (story.comment != null) ...[
