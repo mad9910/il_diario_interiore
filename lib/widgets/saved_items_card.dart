@@ -6,6 +6,7 @@ import 'saved_item_tile.dart';
 import 'card_container.dart';
 import 'confirmation_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'story_detail_card.dart';
 
 class SavedItemsCard extends StatefulWidget {
   @override
@@ -129,22 +130,64 @@ class _SavedItemsCardState extends State<SavedItemsCard> with SingleTickerProvid
       itemCount: appState.favoriteMessages.length,
       itemBuilder: (context, index) {
         final message = appState.favoriteMessages[index];
-        return SavedItemTile(
-          title: 'Messaggio salvato',
-          content: message.text,
-          comment: message.comment,
-          onDelete: () => _handleDelete(
-            context, 
-            'Messaggio', 
-            () async {
-              await appState.toggleMessageFavorite(message, remove: true);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Messaggio eliminato con successo'),
-                  duration: Duration(seconds: 2),
+        return Card(
+          elevation: 0,
+          margin: EdgeInsets.symmetric(vertical: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: Colors.grey.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            title: Text(
+              message.text,
+              style: GoogleFonts.inter(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: message.comment != null ? Row(
+              children: [
+                Icon(Icons.bookmark, size: 12, color: Colors.blue),
+                SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    message.comment!,
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey[600],
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              );
-            },
+              ],
+            ) : null,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.favorite,
+                  color: Colors.red[400],
+                  size: 18,
+                ),
+                SizedBox(width: 8),
+                IconButton(
+                  icon: Icon(Icons.delete_outline, size: 20),
+                  onPressed: () => _handleDelete(
+                    context,
+                    'Messaggio',
+                    () => appState.toggleMessageFavorite(message, remove: true),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -161,14 +204,125 @@ class _SavedItemsCardState extends State<SavedItemsCard> with SingleTickerProvid
       itemCount: appState.favoriteStories.length,
       itemBuilder: (context, index) {
         final story = appState.favoriteStories[index];
-        return SavedItemTile(
-          title: story.title,
-          content: story.content,
-          comment: story.comment,
-          onDelete: () => _handleDelete(
-            context, 
-            story.title, 
-            () => appState.toggleStoryFavorite(story, remove: true)
+        return Card(
+          elevation: 0,
+          margin: EdgeInsets.symmetric(vertical: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: Colors.grey.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: ListTile(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          story.title,
+                          style: GoogleFonts.inter(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          story.content,
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            height: 1.5,
+                          ),
+                        ),
+                        if (story.comment != null) ...[
+                          SizedBox(height: 16),
+                          Divider(),
+                          SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.bookmark, size: 16, color: Colors.blue),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  story.comment!,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                        SizedBox(height: 16),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('Chiudi'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            title: Text(
+              story.title,
+              style: GoogleFonts.inter(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            subtitle: story.comment != null ? Row(
+              children: [
+                Icon(Icons.bookmark, size: 12, color: Colors.blue),
+                SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    story.comment!,
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey[600],
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ) : null,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.favorite,
+                  color: Colors.red[400],
+                  size: 18,
+                ),
+                SizedBox(width: 8),
+                IconButton(
+                  icon: Icon(Icons.delete_outline, size: 20),
+                  onPressed: () => _handleDelete(
+                    context,
+                    story.title,
+                    () => appState.toggleStoryFavorite(story, remove: true),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

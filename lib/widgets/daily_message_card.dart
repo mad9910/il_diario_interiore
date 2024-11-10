@@ -153,40 +153,14 @@ class DailyMessageCard extends StatelessWidget {
                 color: Colors.black87,
               ),
             ),
-            if (message.comment != null) ...[
-              SizedBox(height: 12),
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.bookmark, size: 20, color: Color(0xFF4285F4)),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Il tuo ricordo: ${message.comment}',
-                        style: GoogleFonts.inter(
-                          fontSize: 14,
-                          color: Colors.black54,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
                   icon: Icon(
                     message.isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: Color(0xFFFF69B4),
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   onPressed: () => _handleMessageSave(context, message, state),
                 ),
